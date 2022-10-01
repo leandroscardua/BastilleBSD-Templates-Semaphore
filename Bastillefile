@@ -1,5 +1,4 @@
 ARG version="2.8.66"
 PKG semaphore
-CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/v2.8.66/semaphore_2.8.66_freebsd_amd64.tar.gz
-CMD tar -zxvf semaphore_2.8.66_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
-
+CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/"${version}"/semaphore_"${version}"_freebsd_amd64.tar.gz
+CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
