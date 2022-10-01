@@ -1,4 +1,9 @@
 ARG version="2.8.66"
-PKG semaphore
+PKG semaphore mysql80-server
 CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/"${version}"/semaphore_"${version}"_freebsd_amd64.tar.gz
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
+SYSRC mysql_enable=YES
+SERVICE mysql-server start
+CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Sem@ph0r&';CREATE DATABASE semaphore;CREATE USER 'semaphore'@'' IDENTIFIED BY 'Sem@ph0r&';GRANT SELECT,INSERT,UPDATE,DELETE ON semaphore.* TO 'semaphore'@'';FLUSH PRIVILEGES;grant all on semaphore to 'semaphore'@'10.17.89.73';";
+CMD mkdir /semaphore
+
