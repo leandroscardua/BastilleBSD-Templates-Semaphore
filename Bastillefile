@@ -1,4 +1,7 @@
 ARG version="2.8.66"
+ARG username="semaphore"
+ARG password="sdjna98R"
+ARG email="semaphore3@example.com"
 PKG semaphore mysql80-server
 CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/v"${version}"/semaphore_"${version}"_freebsd_amd64.tar.gz
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
@@ -6,5 +9,5 @@ CP usr /
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
 CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Sem@ph0rE';CREATE DATABASE semaphore_db;CREATE USER 'semaphore_user'@'10.17.89.73' IDENTIFIED WITH mysql_native_password BY 'Sem@ph0rE';GRANT ALL ON semaphore_db.* TO 'semaphore_user'@'10.17.89.73';FLUSH PRIVILEGES;";
-CMD semaphore user add --admin --login semaphore --name semaphore --email semaphore3@example.com --password sdjna98R
+CMD semaphore user add --admin --login "${username}" --name "${username}" --email "${email}" --password "${password}"
 CMD nohup semaphore server --config /usr/local/etc/semaphore/config.json &
