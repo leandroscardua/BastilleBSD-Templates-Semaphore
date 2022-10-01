@@ -4,5 +4,5 @@ CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/down
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
-CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Sem@ph0rE';CREATE DATABASE semaphore_db;CREATE USER 'semaphore_user'@'' IDENTIFIED BY 'Sem@ph0rE';GRANT SELECT,INSERT,UPDATE,DELETE ON semaphore_db.* TO 'semaphore_user'@'10.17.89.73';FLUSH PRIVILEGES;";
+CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Sem@ph0rE';CREATE DATABASE semaphore_db;CREATE USER 'semaphore_user'@'' IDENTIFIED BY 'Sem@ph0rE';GRANT SELECT,INSERT,UPDATE,DELETE ON semaphore_db.* TO 'semaphore_user'@'10.17.89.73' WITH GRANT OPTION;FLUSH PRIVILEGES;";
 CMD mkdir /semaphore
