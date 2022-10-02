@@ -11,8 +11,9 @@ PKG semaphore mysql80-server
 CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/v"${version}"/semaphore_"${version}"_freebsd_amd64.tar.gz
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
 CP usr /
-CMD echo ""user": "${username}"" >> /usr/local/etc/semaphore/config.json
-CMD echo ""pass": "${password}"" >> /usr/local/etc/semaphore/config.json
+CMD sed -i '' 's/"user": "",/"user": "${username}",/g' /usr/local/etc/semaphore/config.json
+CMD sed -i '' 's/"pass": "",/"pass": "${password}",/g' /usr/local/etc/semaphore/config.json
+CMD sed -i '' 's/"name": "",/"name": "${namedb}",/g' /usr/local/etc/semaphore/config.json
 CMD echo ""name": "${namedb}"" >> /usr/local/etc/semaphore/config.json
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
