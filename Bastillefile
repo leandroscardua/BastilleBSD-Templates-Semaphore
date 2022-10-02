@@ -11,6 +11,7 @@ PKG semaphore mysql80-server
 CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/v"${version}"/semaphore_"${version}"_freebsd_amd64.tar.gz
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
 CP usr /
+CMD echo "mysql-port:     3306" >> /usr/local/etc/semaphore/config.json
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
 CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"${rootpassdb}"';CREATE DATABASE "${namedb}";CREATE USER '"${usernamedb}"'@'"${ipadd}"' IDENTIFIED WITH mysql_native_password BY '"${passworddb}"';GRANT ALL ON "${namedb}".* TO '"${usernamedb}"'@'"${ipadd}"';FLUSH PRIVILEGES;";
