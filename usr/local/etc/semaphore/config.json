@@ -1,9 +1,9 @@
 {
         "mysql": {
                 "host": "127.0.0.1:3306",
-                "user": "${usernamedb}",
-                "pass": "${passworddb}",
-                "name": "${namedb}",
+                "user": "",
+                "pass": "",
+                "name": "",
                 "options": null
         },
         "bolt": {
