@@ -1,9 +1,9 @@
 ARG version="2.8.67"
 ARG username="semaphore"
-ARG password="SEmaPh0r&"
+ARG password=$(openssl rand -base64 15)
 ARG usernamedb="semaphore_user"
 ARG namedb="semaphore_db"
-ARG passworddb=$(openssl rand -base64 15)
+ARG passworddb="SEmaPh0r&"
 ARG rootpassdb=$(openssl rand -base64 15)
 ARG email="semaphore3@example.com"
 ARG ipadd=$(ifconfig | grep 'inet' | awk -F ' ' '{ print $2 }')
