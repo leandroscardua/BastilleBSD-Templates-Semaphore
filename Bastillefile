@@ -16,7 +16,7 @@ CMD sed -i '' 's/"pass": "",/"pass": ${dbpassword},/g' /usr/local/etc/semaphore/
 CMD sed -i '' 's/"name": ""/"name": ${dbname},/g' /usr/local/etc/semaphore/config.json
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
-CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"${rootpassdb}"';CREATE DATABASE "${namedb}";CREATE USER '"${usernamedb}"'@'"${ipadd}"' IDENTIFIED WITH mysql_native_password BY '"${passworddb}"';GRANT ALL ON "${namedb}".* TO '"${usernamedb}"'@'"${ipadd}"';FLUSH PRIVILEGES;";
+CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"${rootpassdb}"';CREATE DATABASE "${dbname}";CREATE USER '"${dbusername}"'@'"${ipadd}"' IDENTIFIED WITH mysql_native_password BY '"${dbpassword}"';GRANT ALL ON "${dbname}".* TO '"${dbusername}"'@'"${ipadd}"';FLUSH PRIVILEGES;";
 CMD semaphore user add --admin --login "${username}" --name "${username}" --email "${email}" --password "${password}"
 SYSRC semaphore_enable=YES
 SERVICE semaphore start
