@@ -11,12 +11,13 @@ PKG semaphore mysql80-server
 CP usr /
 CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/download/v"${version}"/semaphore_"${version}"_freebsd_amd64.tar.gz
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
-CMD sed -i '' 's/"user": "root",/"user": ${usernamedb},/g' /usr/local/etc/semaphore/config.json
+CMD sed -i '' 's/"user": "",/"user": ${usernamedb},/g' /usr/local/etc/semaphore/config.json
 CMD sed -i '' 's/"pass": "",/"pass": ${passworddb},/g' /usr/local/etc/semaphore/config.json
-CMD sed -i '' 's/"name": "semaphore"/"name": ${namedb},/g' /usr/local/etc/semaphore/config.json
+CMD sed -i '' 's/"name": ""/"name": ${namedb},/g' /usr/local/etc/semaphore/config.json
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
 CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"${rootpassdb}"';CREATE DATABASE "${namedb}";CREATE USER '"${usernamedb}"'@'"${ipadd}"' IDENTIFIED WITH mysql_native_password BY '"${passworddb}"';GRANT ALL ON "${namedb}".* TO '"${usernamedb}"'@'"${ipadd}"';FLUSH PRIVILEGES;";
 CMD semaphore user add --admin --login "${username}" --name "${username}" --email "${email}" --password "${password}"
-CMD nohup semaphore server --config /usr/local/etc/semaphore/config.json &
+SYSRC semaphore_enable=YES
+SERVICE semaphore start
 CMD echo "The default user for the Admin Portal is $username with password $password and Email $email / MySQL Root Password: $rootpassdb / Semaphore DB User: $usernamedb / Semaphore DB Password: $passworddb"
