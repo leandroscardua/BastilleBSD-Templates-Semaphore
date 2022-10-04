@@ -13,7 +13,7 @@ CMD curl -L -O -C - https://github.com/ansible-semaphore/semaphore/releases/down
 CMD tar -zxvf semaphore_"${version}"_freebsd_amd64.tar.gz -C /usr/local/bin/ semaphore
 CMD sed -i '' 's/"user": "",/"user": ${dbusername},/g' /usr/local/etc/semaphore/config.json
 CMD sed -i '' 's/"pass": "",/"pass": ${dbpassword},/g' /usr/local/etc/semaphore/config.json
-CMD sed -i '' 's/"name": ""/"name": ${dbname},/g' /usr/local/etc/semaphore/config.json
+CMD sed -i '' 's/"name": "",/"name": ${dbname},/g' /usr/local/etc/semaphore/config.json
 SYSRC mysql_enable=YES
 SERVICE mysql-server start
 CMD mysql -u root -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '"${rootpassdb}"';CREATE DATABASE "${dbname}";CREATE USER '"${dbusername}"'@'"${ipadd}"' IDENTIFIED WITH mysql_native_password BY '"${dbpassword}"';GRANT ALL ON "${dbname}".* TO '"${dbusername}"'@'"${ipadd}"';FLUSH PRIVILEGES;";
